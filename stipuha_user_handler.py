@@ -4,6 +4,7 @@
 import telegram
 import logging
 from stipuha_user import *
+from stipuha_messages import *
 
 class StipuhaUserHandler:
 
@@ -18,20 +19,22 @@ class StipuhaUserHandler:
             self.user.set_stipuha(stipuha)
             self.user.set_state(StipuhaUser.WITH_STIPUHA)
             self.bot.sendMessage(chat_id=self.user_id, text='Я все понял, студент.')
+            self.get_stipuha()
         except ValueError:
             logging.warn("{} is not a number.".format(stipuha_message))
             self.get_stipuha_amount()
 
     def get_stipuha_amount(self):
-        self.bot.sendMessage(chat_id=self.user_id, text='Напиши-ка свою стипуху в рублях.')
+        self.bot.sendMessage(chat_id=self.user_id, text='Напиши-ка свою стипуху в рублях (одно число).')
         self.user.set_state(StipuhaUser.GETTING_STIPUHA)
 
     def get_stipuha(self):
         if self.user.get_state() != StipuhaUser.WITH_STIPUHA:
-            self.bot.sendMessage(chat_id=self.user_id, text='Воу. Воу. Сначала укажи свою стипуху.')
+            self.bot.sendMessage(chat_id=self.user_id,
+                                 text='Воу. Воу. Сначала укажи свою стипуху.')
         else:
-            self.bot.sendMessage(chat_id=self.user_id, text='Твоя стипушка - {}. {}'
-                                 .format(self.user.get_stipuha(), telegram.Emoji.WINKING_FACE))
+            self.bot.sendMessage(chat_id=self.user_id,
+                                 text=StipuhaMessages.generate_stipuha_message(self.user.get_stipuha()))
 
     commands = {"/setstipuha": get_stipuha_amount,
                 "/stipuha": get_stipuha}

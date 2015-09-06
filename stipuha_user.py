@@ -19,7 +19,7 @@ class StipuhaUser:
     def load_users_from_disk(filename):
         StipuhaUser._users = dict()
         with open(filename, 'r+') as csvfile:
-            reader = csv.DictReader(csvfile)
+            reader = csv.DictReader(csvfile, dialect=csv.excel_tab)
             for row in reader:
                 StipuhaUser._users[row[StipuhaUser.USER_ID_FIELD]] = \
                     StipuhaUser(user_id=row[StipuhaUser.USER_ID_FIELD],
@@ -31,9 +31,9 @@ class StipuhaUser:
         if StipuhaUser._users is None:
             return
         with open(filename, 'w+') as csvfile:
-            writer = csv.DictWriter(csvfile,  fieldnames=[StipuhaUser.USER_ID_FIELD,
-                                                          StipuhaUser.STATE_FIELD,
-                                                          StipuhaUser.STIPUHA_FIELD])
+            writer = csv.DictWriter(csvfile, dialect=csv.excel_tab, fieldnames=[StipuhaUser.USER_ID_FIELD,
+                                                                                StipuhaUser.STATE_FIELD,
+                                                                                StipuhaUser.STIPUHA_FIELD])
             writer.writeheader()
             for user in StipuhaUser._users.iteritems():
                 writer.writerow({StipuhaUser.USER_ID_FIELD: user[0],
