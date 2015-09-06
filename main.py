@@ -13,7 +13,9 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     # Telegram Bot Authorization Token
-    bot = telegram.Bot('139303220:AAEVttjtRpho0CocNEgoEhsE0sE6UVS30Ck')
+    tokenfile = open("token.txt")
+    token = tokenfile.readline()[:-1]
+    bot = telegram.Bot(token)
 
     # This will be our global variable to keep the latest update_id when requesting
     # for updates. It starts with the latest update_id if available.

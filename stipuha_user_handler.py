@@ -36,8 +36,15 @@ class StipuhaUserHandler:
             self.bot.sendMessage(chat_id=self.user_id,
                                  text=StipuhaMessages.generate_stipuha_message(self.user.get_stipuha()))
 
+    def get_help(self):
+        self.bot.sendMessage(chat_id=self.user_id,
+                             text="Этот бот показывает твою стипуху в долларах и то, что ты можешь купить на нее.\n\n" +
+                                  "/setstipuha - указать стипуху\n" +
+                                  "/stipuha - показать стипуху")
+
     commands = {"/setstipuha": get_stipuha_amount,
-                "/stipuha": get_stipuha}
+                "/stipuha": get_stipuha,
+                "/help": get_help}
     next_handlers = {StipuhaUser.INIT: None,
                      StipuhaUser.GETTING_STIPUHA: handle_stipuha_amount,
                      StipuhaUser.WITH_STIPUHA: None}
