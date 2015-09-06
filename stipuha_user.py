@@ -10,7 +10,7 @@ class StipuhaUser:
     WITH_STIPUHA = 20
     ALL_STATES = [INIT, GETTING_STIPUHA, WITH_STIPUHA]
 
-    FILE = "stipuha_users.csv"
+    FILE = "stipuha_users.tsv"
     USER_ID_FIELD = "user_id"
     STIPUHA_FIELD = "stipuha"
     STATE_FIELD = "state"

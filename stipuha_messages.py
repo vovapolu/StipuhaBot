@@ -14,7 +14,7 @@ class StipuhaMessages:
     _rate_timeout = timedelta(hours=24)
     _last_rate_request = datetime.now()
 
-    FILE = "stipuha_prices.csv"
+    FILE = "stipuha_prices.tsv"
 
     stipuha_prices = None
 
@@ -37,7 +37,7 @@ class StipuhaMessages:
             price_in_stipuha = stipuha_in_usd / Decimal(price[1])
             return ("Твоя стипушка - {:.2f}$. Поздравляю!" +
                     "\n" + "На нее ты можешь купить {:20f} процента {}.")\
-                .format(stipuha_in_usd, price_in_stipuha, price[0])
+                .format(stipuha_in_usd, price_in_stipuha * 100, price[0])
 
 
     @staticmethod
